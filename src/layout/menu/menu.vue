@@ -1,12 +1,12 @@
 <template>
   <div class="menu__logo">
     <div class="menu__logo-icon">
-      <img src="@/assets/layout/logo.svg" />
+      <img src="@/assets/login/logo.png" />
     </div>
-    <span v-show="!collapsed">通用后台</span>
+    <span :style="{fontWeight: 900}" v-show="!collapsed">极寒后台系统管理</span>
   </div>
   <a-menu
-    theme="dark"
+    theme="light"
     mode="inline"
     v-model:selectedKeys="selectedKeys"
     v-model:openKeys="openKeys"
@@ -43,7 +43,7 @@ export default defineComponent({
     const route = useRoute()
     const selectedKeys = ref<string[]>([])
     const openKeys = ref<string[]>([])
-
+    
     const setMenuKey = () => {
       if (!route.meta.hidden) {
         selectedKeys.value = [route.name as string]
@@ -64,7 +64,11 @@ export default defineComponent({
   }
 })
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+
+.ant-layout-sider-children {
+    background: white !important;
+}
 .menu__logo {
   display: flex;
   align-items: center;
@@ -73,6 +77,8 @@ export default defineComponent({
   line-height: 64px;
   overflow: hidden;
   white-space: nowrap;
+  background: #3170a7;
+
   & .menu__logo-icon {
     width: 32px;
     margin-right: 8px;
@@ -86,5 +92,19 @@ export default defineComponent({
     font-size: 20px;
     color: #fff;
   }
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  width: 90%;
+  margin-left: 10%;
+  padding-right: 50px;
+  border-radius: 50px 0px 0px 50px;
+}
+
+.ant-menu-sub.ant-menu-inline > .ant-menu-item, .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+  width: 90%;
+  margin-left: 10%;
+  padding-right: 50px;
+  border-radius: 50px 0px 0px 50px;
 }
 </style>

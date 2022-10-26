@@ -46,9 +46,11 @@ export default defineComponent({
 .layout {
   overflow: hidden;
   height: 100vh;
+
   & .header {
-    background-color: #FFF;
+    background-color: rgba($color: #000000, $alpha: 0);
     padding: 0;
+    border-bottom: 1px solid #fff;
   }
   & .container {
     padding: 8px;
@@ -87,5 +89,10 @@ export default defineComponent({
     box-shadow: inset 0 0 5px #d8d8d8;
     background: #ededed;
   }
+}
+
+.ant-layout {
+  background: url("http://mp-bingyan-java.itheima.net/cold/img/topBg.b273ce66.png") no-repeat;
+  background-size: 100% 260px;
 }
 </style>

@@ -5,7 +5,8 @@ import { message } from 'ant-design-vue'
 import { LoginFrom } from '@/types/views/login'
 import { RouterTable } from '@/types/api/login'
 import { generator } from '@/utils/parsingRouter'
-import { login, info, menu, logout } from '@/api/login'
+import { login, info, logout } from '@/api/login'
+import { menuRouter } from "../../router/menu"
 
 // 处理用户登录、登出、个人信息、权限路由
 
@@ -16,6 +17,7 @@ export type UserState = {
   roles: string[],
   routers?: RouterTable
 }
+
 
 const state: UserState = {
   // 标识
@@ -66,7 +68,6 @@ const user = {
   },
 
   actions: {
-
     // 登录
     login (context: ActionContext<UserState, AllState>, params: LoginFrom) {
       return new Promise((resolve, reject) => {
@@ -100,16 +101,10 @@ const user = {
     // 获取菜单
     menu (context: ActionContext<UserState, AllState>) {
       return new Promise((resolve) => {
-        menu().then(e => {
-          const routeTable = e.data.data
-          context.commit('setRouters', routeTable)
-          // 初始化侧边菜单
-          context.rootState.menu.menuRouter = routeTable[0]['children'] || []
-          context.rootState.menu.menuId = routeTable[0]['id']
-          resolve(generator(routeTable))
-        }).catch(err => {
-          message.error(err.message || err.data.message)
-        })
+          context.commit('setRouters', menuRouter)
+          context.rootState.menu.menuRouter = menuRouter[0]['children'] || []
+          context.rootState.menu.menuId = menuRouter[0]['id']
+          resolve(generator(menuRouter))
       })
     },
 

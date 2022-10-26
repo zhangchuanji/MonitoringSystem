@@ -7,19 +7,15 @@
         @click="$emit('update:collapsed', !collapsed)"
       />
       <menu-fold-outlined v-else class="trigger" @click="$emit('update:collapsed', !collapsed)" />
-      <div class="group__tabs">
-        <a-tabs :activeKey="activeKey" @tabClick="tabClick">
-          <a-tab-pane v-for="item in routers" :key="item.id" :tab="item.name" />
-        </a-tabs>
-      </div>
+
     </div>
     <div class="header__right">
       <a-dropdown :trigger="['click', 'hover']">
         <div class="header__avatar">
           <a-avatar>
             <template #icon>
-              <img :src="avatar" v-if="avatar.length > 0" />
-              <img src="@/assets/layout/avatar.png" v-else />
+              <!-- <img :src="avatar" v-if="avatar.length > 0" />
+              <img src="@/assets/layout/avatar.png" v-else /> -->
             </template>
           </a-avatar>
           <div class="header__avatar-name">{{ name.length > 0 ? name : 'admin' }}</div>
@@ -114,6 +110,7 @@ export default defineComponent({
   align-items: center;
   padding: 0 22px;
   font-size: 20px;
+
   & .header__left {
     display: flex;
     align-items: center;

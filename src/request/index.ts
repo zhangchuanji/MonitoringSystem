@@ -9,7 +9,7 @@ import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 // 创建axios实例
 
 const request = axios.create({
-  baseURL: import.meta.env.VITE_REQUEST_BASE_URL as string,
+  baseURL: "http://192.168.1.38:3000/",
   timeout: 6000
 })
 
@@ -27,6 +27,8 @@ const errorHandler = (error: AxiosError): AxiosError | Promise<AxiosError> => {
  * @param { Object } config 配置参数
  */
 request.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConfig => {
+  console.log();
+  
   config.headers['token'] = storage.get('token') || ''
   return config
 }, errorHandler)

@@ -1,7 +1,5 @@
 <template>
   <div class="icon__container">
-    <p class="tip">说明：直接输入icon名称即可使用，简化了各个图标引入步骤。但是目前是全部引入icon的方案，后续会按需引入减少包的体积</p>
-    <pre>&lta-icon type="AndroidOutlined" /&gt</pre>
     <ul class="icons">
       <li><a-icon type="AndroidOutlined" /></li>
       <li><a-icon type="AppleOutlined" /></li>

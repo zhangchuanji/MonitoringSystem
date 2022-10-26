@@ -141,6 +141,7 @@ export default defineComponent({
   }
   & .ant-tabs-bar {
     margin: 0 0 8px 0;
+    border-bottom: 1px solid #669adb;
   }
   & .ant-tabs-tab-active {
     font-weight: normal;

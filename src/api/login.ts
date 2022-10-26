@@ -12,7 +12,7 @@ type ConfigType<T=ResponseData> = Promise<AxiosResponse<T>>
  */
 export const login = (data: LoginFrom): ConfigType<LoginSuccess> => {
   return request({
-    url: '/login',
+    url: 'users/login',
     method: 'post',
     data
   })
@@ -24,17 +24,7 @@ export const login = (data: LoginFrom): ConfigType<LoginSuccess> => {
  */
 export const info = (): ConfigType<UserInfo> => {
   return request({
-    url: '/info',
-    method: 'get'
-  })
-}
-
-/**
- * @desc: 获取菜单
- */
-export const menu = (): ConfigType<RouterData> => {
-  return request({
-    url: '/menu',
+    url: 'users/info',
     method: 'get'
   })
 }

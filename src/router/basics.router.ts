@@ -11,7 +11,7 @@ export const constantRouterMap: RouteRecordRaw[] = [
   {
     path: '/layout',
     name: 'layout',
-    component: () => import('/src/layout/index.vue')
+    component: () => import('/src/layout/index.vue'),
   },
   {
     path: '/403',
