@@ -30,7 +30,7 @@
           <a-input v-model:value="form.formAddState.fullName" placeholder="" />
         </a-form-item>
         <a-form-item label="Activity" >
-          <a-input v-model:value="form.formAddState.addreViation" placeholder="" />
+          <a-input v-model:value="form.formAddState.abbreViation" placeholder="" />
         </a-form-item>
         <a-form-item label="Activity" >
           <a-textarea v-model:value="form.formAddState.adminRess" :rows="3" placeholder="" />
