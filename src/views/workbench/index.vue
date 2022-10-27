@@ -1,137 +1,186 @@
 <template>
-  <tableLayout :columns="columns" :formItem="formItem" :selectItem="selectItem" :rules="rules" :get="getData"
-    :add="addData" :editData="editGetData" :edit="editData" :del="delData" :options="options"
-    :replaceFields="{ id: 'user_id' }" @editOpen="editOpen" @addOpen="addOpen" @editSuccess="editSuccess"
-    @addSuccess="addSuccess" :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-    ref="layout">
-    <template v-slot:status="item">
-      测试-{{ item.value.text.name }}
-    </template>
-    <template #button>
-      <a-button type="primary" style="margin-left: 20px" @click="toDetail">彩蛋</a-button>
-    </template>
-    <template #operationMore="item">
-      <a-divider type="vertical" />
-      <a-dropdown>
-        <a class="ant-dropdown-link" @click.prevent>更多</a>
-        <template #overlay>
-          <a-menu>
-            <a-menu-item>
-              <a @click="editPassword(item)">修改密码</a>
-            </a-menu-item>
-          </a-menu>
-        </template>
-      </a-dropdown>
-    </template>
-    <template v-slot:custom="data">
-      <a-input v-model:value="data.formData[data.key]" />
-    </template>
-  </tableLayout>
+  <div>
+    <div class="top">
+      <a-card>
+        <div class="top-left">
+          <div class="top-img">
+            <a-avatar :size="64" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+          </div>
+          <div class="topText">
+            <p class="topP">欢迎, admin,祝您每一天开心</p>
+            <p class="topLoginTime">上一次登录时间：{{ times }}</p>
+          </div>
+        </div>
+        <div class="top-right">
+          <div>
+            <p>16</p>
+            <p>设备数</p>
+          </div>
+          <div>
+            <p>5</p>
+            <p>机构数</p>
+          </div>
+          <div>
+            <p>32342</p>
+            <p>警告数</p>
+          </div>
+        </div>
+      </a-card>
+    </div>
+  </div>
 </template>
-<script lang="ts">
-import { useRouter } from 'vue-router'
-import { defineComponent, ref } from 'vue'
-import { getData, addData, editGetData, editData, delData, upload, options } from '@/api/table'
-import tableLayout from '@/components/tableLayout/tableLayout.vue'
-export default defineComponent({
-  name: 'el_table',
-  components: {
-    tableLayout
-  },
-  setup() {
 
-    // 列表
-    const columns = [
-      { title: '序号', dataIndex: 'id' }, { title: '键名转换', dataIndex: 'user_id' }, { title: '姓名', dataIndex: 'name' },
-      { title: '年龄', dataIndex: 'age' }, { title: '住址', dataIndex: 'addr' },
-      { title: '手机号', dataIndex: 'phone' }, { title: '行业', dataIndex: 'industry' },
-      { title: '净资产(亿元)', dataIndex: 'wealth' }, { title: '状态', slots: { customRender: 'status' } },
-    ]
+<script lang="ts" setup>
+import { reactive, onMounted, ref } from 'vue';
 
-    // 表单
-    const formItem = [
-      { title: '姓名', key: 'name', type: 'input' }, { title: '年龄', key: 'age', type: 'number' },
-      { title: '住址', key: 'addr', type: 'input' }, { title: '手机号', key: 'phone', type: 'input' },
-      { title: '行业', key: 'industry', type: 'input' }, {
-        title: '净资产', key: 'wealth', type: 'select',
-        options: [
-          { value: 10, label: '10亿' }, { value: 20, label: '20亿' },
-          { value: 30, label: '30亿' }, { value: 40, label: '40亿' },
-          { value: 999, label: '50亿+' }
-        ]
-      },
-      { title: '头像', key: 'avatar', type: 'upload', upload: upload },
-      { title: '车型', key: 'cat', type: 'checkbox', options: [], optionKey: 'cat' },
-      { title: '备注', key: 'content', type: 'textarea', itemWidth: 'calc(100% - 20px)', labelCol: 3 },
-      { title: '表单插槽', key: 'formnet', type: 'slot', slotName: 'custom' },
-    ]
 
-    // 筛选
-    const selectItem = ref([
-      { title: '姓名', key: 'name', type: 'input', itemWidth: '290px' }, { title: '年龄', key: 'age', type: 'number', itemWidth: '290px', defaultVal: 20 },
-      { title: '住址', key: 'addr', type: 'input', itemWidth: '290px' }, { title: '日期', key: 'time', type: 'rangePicker', itemWidth: '290px' },
-      { title: '行业', key: 'industry', type: 'select', options: [], optionKey: 'industry', itemWidth: '290px' }
-    ])
+const state = reactive({
 
-    // 规则
-    const rules = {
-      name: [{ required: true, message: '请输入姓名', trigger: 'change' }],
-      age: [{ required: true, message: '请输入年龄', trigger: 'change', type: 'number' }],
-      addr: [{ required: true, message: '请输入地址', trigger: 'change' }],
-      phone: [{ required: true, message: '请输入手机号', trigger: 'change' }],
-      industry: [{ required: true, message: '请输入行业', trigger: 'change', type: 'string' }],
-      wealth: [{ required: true, message: '请输入净资产', trigger: 'change', type: 'number' }],
-      formnet: [{ required: true, message: '请输入表单插槽', trigger: 'change' }]
-    }
+  date: '',
 
-    // 改密
-    const editPassword = (item: any) => {
-      console.log(item)
-    }
+  time: '',
 
-    // 多选
-    const selectedRowKeys = ref<any[]>([])
-    const onSelectChange = (keys: []) => {
-      selectedRowKeys.value = keys
-    }
+  week: '',
 
-    // 详情
-    const router = useRouter()
-    const toDetail = () => {
-      router.push({ path: '/element/detail', query: { id: Math.floor(Math.random() * 100) } })
-    }
+  showIndex: 0
 
-    // 事件钩子
-    const editOpen = (data: any) => {
-      console.log('编辑弹框打开，并但会编辑数据')
-      console.log(data)
-    }
+})
+// 获取时间接口
 
-    const addOpen = () => {
-      console.log('添加弹框打开，无数据')
-    }
+const times = ref('')
 
-    const editSuccess = () => {
-      console.log('编辑提交成功，无数据')
-    }
+const getTime = async () => {
 
-    const addSuccess = () => {
-      console.log('添加提交成功，无数据')
-    }
+  var myDate = new Date()
 
-    return {
-      columns, formItem, selectItem, getData, addData, editGetData, editData, delData, options, rules, selectedRowKeys, onSelectChange, editPassword, toDetail,
-      editOpen, addOpen, editSuccess, addSuccess
-    }
+  let month = (myDate.getMonth() + 1).toString().padStart(2, '0')
 
-  }
+  let day = myDate.getDate().toString().padStart(2, '0')
+
+  let hour = myDate.getHours().toString().padStart(2, '0')
+
+  let minutes = myDate.getMinutes().toString().padStart(2, '0')
+
+  let seconed = myDate.getSeconds().toString().padStart(2, '0')
+
+  state.date = myDate.getFullYear() + '-' + month + '-' + day
+
+  state.time = hour + ':' + minutes + ':' + seconed
+  console.log(state);
+  
+  times.value = state.date + " / " + state.time
+}
+setInterval(() => {
+
+  getTime()
+
+}, 1000)
+
+const getWeekDate = () => {
+
+  var now = new Date()
+
+  var day = now.getDay()
+
+  var weeks = [
+
+    '星期日',
+
+    '星期一',
+
+    '星期二',
+
+    '星期三',
+
+    '星期四',
+
+    '星期五',
+
+    '星期六'
+
+  ]
+
+  state.week = weeks[day]
+
+}
+setInterval(() => {
+
+  getWeekDate()
+
+}, 1000 * 60 * 60 * 24)
+
+
+onMounted(() => {
+  getTime()
 })
 </script>
-<style lang="scss" scoped>
-pre {
-  background-color: #f6f6f6;
-  padding: 10px;
-  margin: 10px;
-  display: block;
+
+<style lang="scss">
+.top {
+  width: 100%;
+  height: 100px;
+
+  .ant-card-bordered {
+    border-radius: 15px;
+    height: 100%;
+    padding: 16px;
+
+    .ant-card-body {
+      height: 100%;
+      padding: 0;
+    }
+  }
+
+  .top-left {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+
+    div {
+      display: inline-block;
+    }
+
+    .top-img {
+      position: absolute;
+      top: 1rem;
+
+      img {
+        vertical-align: middle;
+      }
+    }
+
+    .topText {
+      margin-left: 4.2rem;
+
+      p {
+        margin: 0;
+      }
+
+      .topP {
+        font-size: 1.1rem;
+        margin-top: 0.4rem;
+      }
+
+      .topLoginTime {
+        margin-top: 0.5rem;
+        color: #999999;
+      }
+    }
+  }
+
+  .top-right {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+
+    div {
+     display: inline-block;
+     
+     p{
+      margin: 0;
+     }
+    }
+  }
+
 }
 </style>

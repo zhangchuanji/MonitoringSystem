@@ -1,12 +1,7 @@
 <template>
-  <transition>
-
-    <a-config-provider v-bind="getPopupContainer">
-      <router-view></router-view>
-    </a-config-provider>
-
-  </transition>
-
+  <a-config-provider v-bind="getPopupContainer">
+    <router-view></router-view>
+  </a-config-provider>
 </template>
 
 <script lang="ts">
@@ -31,21 +26,5 @@ export default defineComponent({
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #333;
-}
-
-.v-enter-from, .v-leave-to {
-  opacity: 0;
-  transform: translateY(-100%);
-}
-.v-enter-to, .v-leave-from {
-  opacity: 1;
-  transform: translateY(0%);
-}
-
-.v-enter-active {
-  transition: all 2s ease;
-}
-.v-leave-active {
-  transition: all 1.2s ease-in-out;
 }
 </style>

@@ -1,9 +1,11 @@
 <template>
-  <router-view v-slot="{ Component }">
-    <keep-alive :include="includeList">
-      <component :is="Component" />
-    </keep-alive>
-  </router-view>
+  <transition>
+    <router-view v-slot="{ Component }">
+      <keep-alive :include="includeList">
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
+  </transition>
 </template>
 <script lang="ts">
 import { mapState } from 'vuex'
@@ -17,3 +19,14 @@ export default defineComponent({
   }
 })
 </script>
+<style>
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.v-enter-active {
+  transition: all 1s ease-in;
+}
+</style>

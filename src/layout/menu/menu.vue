@@ -3,14 +3,9 @@
     <div class="menu__logo-icon">
       <img src="@/assets/login/logo.png" />
     </div>
-    <span :style="{fontWeight: 900}" v-show="!collapsed">极寒后台系统管理</span>
+    <span :style="{ fontWeight: 900 }" v-show="!collapsed">极寒后台系统管理</span>
   </div>
-  <a-menu
-    theme="light"
-    mode="inline"
-    v-model:selectedKeys="selectedKeys"
-    v-model:openKeys="openKeys"
-  >
+  <a-menu theme="light" mode="inline" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys">
     <create :router="item" v-for="item in menuRouter" :key="item.id" />
   </a-menu>
 </template>
@@ -43,7 +38,7 @@ export default defineComponent({
     const route = useRoute()
     const selectedKeys = ref<string[]>([])
     const openKeys = ref<string[]>([])
-    
+
     const setMenuKey = () => {
       if (!route.meta.hidden) {
         selectedKeys.value = [route.name as string]
@@ -60,15 +55,15 @@ export default defineComponent({
     watch(route, setMenuKey)
 
     return { selectedKeys, openKeys }
-    
+
   }
 })
 </script>
 <style lang="scss">
-
 .ant-layout-sider-children {
-    background: white !important;
+  background: white !important;
 }
+
 .menu__logo {
   display: flex;
   align-items: center;
@@ -82,11 +77,13 @@ export default defineComponent({
   & .menu__logo-icon {
     width: 32px;
     margin-right: 8px;
+
     img {
       display: block;
       width: 100%;
     }
   }
+
   & span {
     display: inline-block;
     font-size: 20px;
@@ -94,17 +91,37 @@ export default defineComponent({
   }
 }
 
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-  width: 90%;
-  margin-left: 10%;
-  padding-right: 50px;
-  border-radius: 50px 0px 0px 50px;
+.ant-menu-inline {
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    width: 90%;
+    margin-left: 10%;
+    padding-right: 50px;
+    border-radius: 50px 0px 0px 50px;
+  }
+
+  .ant-menu-sub.ant-menu-inline>.ant-menu-item,
+  .ant-menu-sub.ant-menu-inline>.ant-menu-submenu>.ant-menu-submenu-title {
+    width: 90%;
+    margin-left: 10%;
+    padding-right: 50px;
+    border-radius: 50px 0px 0px 50px;
+  }
 }
 
-.ant-menu-sub.ant-menu-inline > .ant-menu-item, .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
-  width: 90%;
-  margin-left: 10%;
-  padding-right: 50px;
-  border-radius: 50px 0px 0px 50px;
-}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    width: 97%;
+    margin-left: 3%;
+    border-radius: 50px 0px 0px 50px;
+  }
+
+  .ant-menu-sub.ant-menu-inline>.ant-menu-item,
+  .ant-menu-sub.ant-menu-inline>.ant-menu-submenu>.ant-menu-submenu-title {
+    width: 97%; 
+    margin-left: 3%;
+    border-radius: 50px 0px 0px 50px;
+  }
+
+  .ant-menu-inline.ant-menu-root .ant-menu-item, .ant-menu-inline.ant-menu-root .ant-menu-submenu-title {
+    margin-left: 3%;
+  }
 </style>
