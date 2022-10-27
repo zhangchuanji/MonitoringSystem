@@ -25,11 +25,13 @@
     </a-tab-pane>
   </a-tabs> -->
   <div class="main__container">
-    <router-view v-slot="{ Component }">
-      <keep-alive :include="includeList">
-        <component :is="Component" />
-      </keep-alive>
-    </router-view>
+    <transition>
+      <router-view v-slot="{ Component }">
+        <keep-alive :include="includeList">
+          <component :is="Component" />
+        </keep-alive>
+      </router-view>
+    </transition>
   </div>
 </template>
 <script lang="ts">
@@ -147,5 +149,13 @@ export default defineComponent({
     font-weight: normal;
     border-bottom: 1px solid #f0f0f0 !important;
   }
+}
+
+.v-enter-from, .v-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+.v-enter-active {
+  transition: all 1s ease-in;
 }
 </style>

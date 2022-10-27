@@ -1,137 +1,147 @@
 <template>
-  <tableLayout :columns="columns" :formItem="formItem" :selectItem="selectItem" :rules="rules" :get="getData"
-    :add="addData" :editData="editGetData" :edit="editData" :del="delData" :options="options"
-    :replaceFields="{ id: 'user_id' }" @editOpen="editOpen" @addOpen="addOpen" @editSuccess="editSuccess"
-    @addSuccess="addSuccess" :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-    ref="layout">
-    <template v-slot:status="item">
-      测试-{{ item.value.text.name }}
-    </template>
-    <template #button>
-      <a-button type="primary" style="margin-left: 20px" @click="toDetail">彩蛋</a-button>
-    </template>
-    <template #operationMore="item">
-      <a-divider type="vertical" />
-      <a-dropdown>
-        <a class="ant-dropdown-link" @click.prevent>更多</a>
-        <template #overlay>
-          <a-menu>
-            <a-menu-item>
-              <a @click="editPassword(item)">修改密码</a>
-            </a-menu-item>
-          </a-menu>
+  <div>
+    <a-card class="qwe">
+      <div class="tag">
+        <HomeFilled /> {{ TabMenu }}
+      </div>
+      <div class="search">
+        <a-button type="primary">+新增</a-button>
+        <a-input v-model:value="formState.fullName" placeholder="请输入企业名称" />
+      </div>
+    </a-card>
+    <a-card>
+      <a-table :columns="columns" :data-source="TableData">
+        <template #operation>
+          <a-button type="link">库房</a-button>
+          <a-button type="link">修改</a-button>
+          <a-button type="link" danger>删除</a-button>
         </template>
-      </a-dropdown>
-    </template>
-    <template v-slot:custom="data">
-      <a-input v-model:value="data.formData[data.key]" />
-    </template>
-  </tableLayout>
+      </a-table>
+    </a-card>
+  </div>
 </template>
-<script lang="ts">
-import { useRouter } from 'vue-router'
-import { defineComponent, ref } from 'vue'
-import { getData, addData, editGetData, editData, delData, upload, options } from '@/api/table'
-import tableLayout from '@/components/tableLayout/tableLayout.vue'
-export default defineComponent({
-  name: 'el_table',
-  components: {
-    tableLayout
+
+<script lang="ts" setup>
+import { defineComponent, onMounted, reactive, ref, UnwrapRef } from 'vue';
+import { HomeFilled } from '@ant-design/icons-vue';
+import { useRouter } from "vue-router";
+import request from '../../request'
+
+
+const columns = [
+  {
+    title: '序号',
+    dataIndex: '__v',
+    key: "__v",
+    width: '5%',
   },
-  setup() {
+  {
+    title: '企业全称',
+    dataIndex: 'fullName',
+    key: "fullName",
+    width: '19%',
+  },
+  {
+    title: '企业简称',
+    dataIndex: 'abbreViation',
+    key: "abbreViation",
+    width: '19%',
+  },
+  {
+    title: '质量管理员',
+    dataIndex: 'admin',
+    key: "admin",
+    width: '19%',
+  },
+  {
+    title: '联系电话',
+    dataIndex: 'adminPhone',
+    key: "adminPhone",
+    width: '19%',
+  },
+  {
+    title: '操作',
+    key: 'operation',
+    slots: { customRender: 'operation' },
+    width: '19%',
+  },
+];
 
-    // 列表
-    const columns = [
-      { title: '序号', dataIndex: 'id' }, { title: '键名转换', dataIndex: 'user_id' }, { title: '姓名', dataIndex: 'name' },
-      { title: '年龄', dataIndex: 'age' }, { title: '住址', dataIndex: 'addr' },
-      { title: '手机号', dataIndex: 'phone' }, { title: '行业', dataIndex: 'industry' },
-      { title: '净资产(亿元)', dataIndex: 'wealth' }, { title: '状态', slots: { customRender: 'status' } },
-    ]
+const router = useRouter();
+const TabMenu = ref(router.currentRoute.value.meta.title)
 
-    // 表单
-    const formItem = [
-      { title: '姓名', key: 'name', type: 'input' }, { title: '年龄', key: 'age', type: 'number' },
-      { title: '住址', key: 'addr', type: 'input' }, { title: '手机号', key: 'phone', type: 'input' },
-      { title: '行业', key: 'industry', type: 'input' }, {
-        title: '净资产', key: 'wealth', type: 'select',
-        options: [
-          { value: 10, label: '10亿' }, { value: 20, label: '20亿' },
-          { value: 30, label: '30亿' }, { value: 40, label: '40亿' },
-          { value: 999, label: '50亿+' }
-        ]
-      },
-      { title: '头像', key: 'avatar', type: 'upload', upload: upload },
-      { title: '车型', key: 'cat', type: 'checkbox', options: [], optionKey: 'cat' },
-      { title: '备注', key: 'content', type: 'textarea', itemWidth: 'calc(100% - 20px)', labelCol: 3 },
-      { title: '表单插槽', key: 'formnet', type: 'slot', slotName: 'custom' },
-    ]
+const TableData = ref([])
 
-    // 筛选
-    const selectItem = ref([
-      { title: '姓名', key: 'name', type: 'input', itemWidth: '290px' }, { title: '年龄', key: 'age', type: 'number', itemWidth: '290px', defaultVal: 20 },
-      { title: '住址', key: 'addr', type: 'input', itemWidth: '290px' }, { title: '日期', key: 'time', type: 'rangePicker', itemWidth: '290px' },
-      { title: '行业', key: 'industry', type: 'select', options: [], optionKey: 'industry', itemWidth: '290px' }
-    ])
+const GetTableData = async () => {
+  let { data } = await request.get(`/business?pageSize=${10}&current=${1}`)
+  TableData.value = data.data
+  console.log(data);
+}
 
-    // 规则
-    const rules = {
-      name: [{ required: true, message: '请输入姓名', trigger: 'change' }],
-      age: [{ required: true, message: '请输入年龄', trigger: 'change', type: 'number' }],
-      addr: [{ required: true, message: '请输入地址', trigger: 'change' }],
-      phone: [{ required: true, message: '请输入手机号', trigger: 'change' }],
-      industry: [{ required: true, message: '请输入行业', trigger: 'change', type: 'string' }],
-      wealth: [{ required: true, message: '请输入净资产', trigger: 'change', type: 'number' }],
-      formnet: [{ required: true, message: '请输入表单插槽', trigger: 'change' }]
-    }
-
-    // 改密
-    const editPassword = (item: any) => {
-      console.log(item)
-    }
-
-    // 多选
-    const selectedRowKeys = ref<any[]>([])
-    const onSelectChange = (keys: []) => {
-      selectedRowKeys.value = keys
-    }
-
-    // 详情
-    const router = useRouter()
-    const toDetail = () => {
-      router.push({ path: '/element/detail', query: { id: Math.floor(Math.random() * 100) } })
-    }
-
-    // 事件钩子
-    const editOpen = (data: any) => {
-      console.log('编辑弹框打开，并但会编辑数据')
-      console.log(data)
-    }
-
-    const addOpen = () => {
-      console.log('添加弹框打开，无数据')
-    }
-
-    const editSuccess = () => {
-      console.log('编辑提交成功，无数据')
-    }
-
-    const addSuccess = () => {
-      console.log('添加提交成功，无数据')
-    }
-
-    return {
-      columns, formItem, selectItem, getData, addData, editGetData, editData, delData, options, rules, selectedRowKeys, onSelectChange, editPassword, toDetail,
-      editOpen, addOpen, editSuccess, addSuccess
-    }
-
-  }
+const formState = ref({
+  fullName: '',
+  admin: ''
 })
+
+const handleFinish = (values: any) => {
+  console.log(values, formState);
+};
+
+const onSubmit = () => {
+};
+
+
+onMounted(() => {
+  GetTableData()
+})
+
 </script>
-<style lang="scss" scoped>
-pre {
-  background-color: #f6f6f6;
-  padding: 10px;
-  margin: 10px;
-  display: block;
+
+<style lang="scss">
+.qwe {
+  height: 6rem;
+  background: rgba($color: #fff, $alpha: 0.2);
+
+
+
+  .ant-card-body {
+    padding: 0;
+    line-height: 6rem;
+  }
+
+  div {
+    display: inline-block;
+  }
+
+  .tag {
+    height: 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 2rem;
+    color: white;
+    margin-left: 2rem;
+  }
+
+  .search {
+    // height: 6rem;
+    position: absolute;
+    display: flex;
+    right: 6rem;
+    top: 2rem;
+
+    .ant-btn {
+      margin-right: 1rem;
+    }
+  }
+}
+
+.ant-card-bordered {
+  margin: 1.3rem;
+  border-radius: 15px;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+  text-align: center;
 }
 </style>
