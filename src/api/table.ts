@@ -6,8 +6,9 @@ import { ResponseData } from '@/types/api/public'
 type ConfigType<T=ResponseData> = Promise<AxiosResponse<T>>
 
 export const getData = (params: any): ConfigType<TableList> => {
+
   return request({
-    url: '/table',
+    url: '/business',
     method: 'get',
     params
   })
@@ -15,7 +16,7 @@ export const getData = (params: any): ConfigType<TableList> => {
 
 export const addData = (data: any): ConfigType => {
   return request({
-    url: '/table/add',
+    url: '/business',
     method: 'post',
     data
   })
@@ -23,31 +24,31 @@ export const addData = (data: any): ConfigType => {
 
 export const editGetData = (params: any): ConfigType<EditData> => {
   return request({
-    url: '/table/editGetData',
-    method: 'get',
+    url: '/business',
+    method: 'put',
     params
   })
 }
 
 export const editData = (data: any): ConfigType => {
   return request({
-    url: '/table/edit',
-    method: 'post',
+    url: '/business',
+    method: 'put',
     data
   })
 }
 
 export const delData = (data: any): ConfigType => {
   return request({
-    url: '/table/del',
-    method: 'post',
+    url: '/business',
+    method: 'delete',
     data
   })
 }
 
 export const upload = (data: any): ConfigType<UploadApi> => {
   return request({
-    url: '/table/upload',
+    url: '/business',
     method: 'post',
     data
   })
@@ -55,7 +56,7 @@ export const upload = (data: any): ConfigType<UploadApi> => {
 
 export const options = (): ConfigType<OptionsData> => {
   return request({
-    url: '/table/options',
-    method: 'get'
+    // url: '/business',
+    // method: 'get'
   })
 }

@@ -56,6 +56,7 @@ export default defineComponent({
     padding: 8px;
     overflow-y: auto;
     overflow-x: hidden;
+    border-radius: 15px;
   }
   & .container::-webkit-scrollbar {
     width: 6px;
@@ -92,7 +93,12 @@ export default defineComponent({
 }
 
 .ant-layout {
-  background: url("http://mp-bingyan-java.itheima.net/cold/img/topBg.b273ce66.png") no-repeat;
+  background: #f0f0f0 url("http://mp-bingyan-java.itheima.net/cold/img/topBg.b273ce66.png") no-repeat;
   background-size: 100% 260px;
+}
+
+.main__container[data-v-0b6895a3] {
+  border-radius: 15px;
+  background: rgba($color: #000000, $alpha: 0);
 }
 </style>

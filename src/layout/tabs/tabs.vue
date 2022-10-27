@@ -1,5 +1,5 @@
 <template>
-  <a-tabs
+  <!-- <a-tabs
     v-model:activeKey="activeKey"
     type="editable-card" 
     :tabBarGutter="6" 
@@ -23,7 +23,7 @@
         </a-dropdown>
       </template>
     </a-tab-pane>
-  </a-tabs>
+  </a-tabs> -->
   <div class="main__container">
     <router-view v-slot="{ Component }">
       <keep-alive :include="includeList">
