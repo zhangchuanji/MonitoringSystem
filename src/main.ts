@@ -6,8 +6,15 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { globalAxios } from './request'
+import BaiduMap from 'vue-baidu-map-3x'
+
 
 const app = createApp(App)
+// 引入百度地图
+app.use(BaiduMap, {
+  // 百度地图密钥 // 通过链接获取https://lbsyun.baidu.com/apiconsole/key#/home
+  ak: 'kEtGonWj3y6MBD5BCXvvEAjRpKSWYWeq',
+});
 
 // 使用antd
 app.use(Antd)

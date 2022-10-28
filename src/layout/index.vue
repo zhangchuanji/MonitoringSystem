@@ -2,7 +2,7 @@
   <a-layout class="layout">
 
     <!-- 侧边 -->
-    <a-layout-sider width="256" v-model:collapsed="collapsed" :trigger="null" collapsible>
+    <a-layout-sider width="200" v-model:collapsed="collapsed" :trigger="null" collapsible>
       <layout-menu :collapsed="collapsed" />
     </a-layout-sider>
 

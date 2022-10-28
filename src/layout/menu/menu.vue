@@ -3,7 +3,7 @@
     <div class="menu__logo-icon">
       <img src="@/assets/login/logo.png" />
     </div>
-    <span :style="{ fontWeight: 900 }" v-show="!collapsed">极寒后台系统管理</span>
+    <span :style="{ fontWeight: 900 }" v-show="!collapsed">极寒</span>
   </div>
   <a-menu theme="light" mode="inline" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys">
     <create :router="item" v-for="item in menuRouter" :key="item.id" />
