@@ -277,8 +277,6 @@ onMounted(() => {
   height: 6rem;
   background: rgba($color: #fff, $alpha: 0.2);
 
-
-
   .ant-card-body {
     padding: 0;
     line-height: 6rem;

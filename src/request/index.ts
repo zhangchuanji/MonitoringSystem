@@ -9,7 +9,7 @@ import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 // 创建axios实例
 
 const request = axios.create({
-  baseURL: "http://192.168.1.12:3001/",
+  baseURL: "http://192.168.1.26:3001/",
   timeout: 6000
 })
 

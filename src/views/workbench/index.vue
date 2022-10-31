@@ -78,7 +78,7 @@
           <div class="tagECharts">
             <p>设备数趋势图</p>
           </div>
-          <div ref="echartsRefLine" id="echarts"></div>
+          <div ref="echartsRefLine" id="echartsLine"></div>
         </a-card>
       </div>
       <div class="bottomComtent">
@@ -86,7 +86,7 @@
           <div class="bottomComtent1">
             <p>设备状态分布</p>
           </div>
-          <div ref="EchartsItemPie" id="echartsPie"></div>
+          <div ref="echartsRefPie" id="echartsPie"></div>
         </a-card>
         <a-card>
           <div class="bottomComtent2">
@@ -297,11 +297,6 @@ const EchartsItemLine = () => {
 const EchartsItemPie = () => {
   const myEchartse = echarts.init(echartsRefPie.value!)
   const option = {
-    title: {
-      text: 'Referer of a Website',
-      subtext: 'Fake Data',
-      left: 'center'
-    },
     tooltip: {
       trigger: 'item'
     },
@@ -315,11 +310,10 @@ const EchartsItemPie = () => {
         type: 'pie',
         radius: '50%',
         data: [
-          { value: 1048, name: 'Search Engine' },
-          { value: 735, name: 'Direct' },
-          { value: 580, name: 'Email' },
-          { value: 484, name: 'Union Ads' },
-          { value: 300, name: 'Video Ads' }
+          { value: 235, name: '正常运行' },
+          { value: 10, name: '离线' },
+          { value: 34, name: '报警' },
+          { value: 35, name: '预报警' }
         ],
         emphasis: {
           itemStyle: {
@@ -641,7 +635,7 @@ onMounted(() => {
     }
   }
 
-  #echarts {
+  #echartsLine {
     width: 1660px;
     height: 16rem;
   }
@@ -651,6 +645,7 @@ onMounted(() => {
 .bottomComtent {
   margin-top: 1rem;
   margin-bottom: 1rem;
+  display: flex;
 
   .ant-card-bordered {
     border-radius: 15px;
