@@ -45,10 +45,9 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref, toRaw } from 'vue';
+import { computed, onMounted, reactive, ref, toRaw } from 'vue';
 import { useRouter } from "vue-router";
 import { HomeFilled, EditTwoTone } from '@ant-design/icons-vue';
-
 
 const ListData = ref([
   {
@@ -164,6 +163,20 @@ const ListData = ref([
 // 获取当前路由地址名称
 const router = useRouter();
 const TabMenu = ref(router.currentRoute.value.meta.title)
+
+const title = router.currentRoute.value
+console.log(title, 123);
+
+const ListData1 = computed(() => {
+  if ( title === undefined ) {
+    return ListData
+  }else {
+    console.log(2);
+    // const list = ListData.value.filter(item => item.title == title)
+    // return list
+  }
+})
+console.log(ListData1);
 
 
 </script>

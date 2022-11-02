@@ -22,7 +22,7 @@
               <span>质管人员：</span> <span class="item">{{ from.admin }}</span>
               <span>质管人员电话：</span> <span class="item">{{ from.adminPhone }}</span>
             </div>
-            <a-button type="link">仓库实时监控</a-button>
+            <a-button type="link" @click="router.push({ path: '/monitoring/storehouse', params: { title: from.title } })">仓库实时监控</a-button>
           </bm-info-window>
         </baidu-map>
       </div>
@@ -154,18 +154,18 @@ const MapClick = (items: any) => {
 }
 
 
+
+.ant-card-bordered {
+  margin: 1.3rem;
+  border-radius: 15px;
+}
+
+
 #map {
   width: 100%;
   height: 40rem;
 
-  .map {
-    width: 100%;
-    height: 100%;
-  }
-
-}
-
-.BMap_cpyCtrl {
+  .BMap_cpyCtrl {
   display: none !important;
 
 }
@@ -174,8 +174,31 @@ const MapClick = (items: any) => {
   display: none !important;
 }
 
-.ant-card-bordered {
-  margin: 1.3rem;
-  border-radius: 15px;
+
+  .map {
+    width: 100%;
+    height: 100%;
+
+    div {
+      // margin-top: 10px;
+
+      span {
+        display: inline-block;
+        width: 150px;
+        height: 30px;
+        margin-left: 5px;
+        text-align: right;
+        margin-top: 10px;
+        font-weight: 900;
+        font-size: 0.9rem;
+      }
+
+      .item {
+        color: royalblue;
+        font-size: 0.2rem;
+        text-align: left;
+      }
+    }
+  }
 }
 </style>

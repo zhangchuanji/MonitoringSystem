@@ -14,37 +14,39 @@
     <!-- 表格区域 -->
     <a-card>
       <a-table :columns="columns" :data-source="TableData">
-        <template #operation="{ record }" >
+        <template #operation="{ record }">
           <a-button type="link">温度曲线图</a-button>
           <a-button type="link">湿度曲线图</a-button>
         </template>
-        <template #wd="{record}">
-          <span style="color: red;" v-if="record.wd < record.wdyzMin || record.wd >= record.wdyzMax">{{ record.wd }}℃</span>
+        <template #wd="{ record }">
+          <span style="color: red;" v-if="record.wd < record.wdyzMin || record.wd >= record.wdyzMax">{{ record.wd
+          }}℃</span>
           <span style="color: green;" v-else>{{ record.wd }}℃</span>
           <!-- <span>{{record.wd < record.wdyzMin || record.wd >= record.wdyzMax}}</span> -->
         </template>
-        <template #sd="{record}">
-          <span style="color: red;" v-if="record.sd >= record.sdyzMax || record.sd <= record.sdyzMin">{{ record.sd }}℃</span>
+        <template #sd="{ record }">
+          <span style="color: red;" v-if="record.sd >= record.sdyzMax || record.sd <= record.sdyzMin">{{ record.sd
+          }}℃</span>
           <span style="color: green;" v-else>{{ record.sd }}℃</span>
         </template>
-        <template #wdjb="{text}">
+        <template #wdjb="{ text }">
           <span v-if="!text" style="color: red;">警报</span>
-          <span v-else  style="color: green;">正常</span>
+          <span v-else style="color: green;">正常</span>
         </template>
-        <template #sdjb="{text}">
+        <template #sdjb="{ text }">
           <span v-if="!text" style="color: red;">警报</span>
-          <span v-else  style="color: green;">正常</span>
+          <span v-else style="color: green;">正常</span>
         </template>
-        <template #wdyz="{record}">
+        <template #wdyz="{ record }">
           <span>{{ record.wdyzMin }} / {{ record.wdyzMax }}</span>
         </template>
-        <template #sdyz="{record}">
+        <template #sdyz="{ record }">
           <span>{{ record.sdyzMin }} / {{ record.sdyzMax }}</span>
         </template>
-        <template #sbzt="{text}">
-          <span v-show=" text == 0 " style="color: red;">异常</span>
-          <span v-show=" text == 1 " style="color: red;">停用</span>
-          <span v-show=" text == 2 " style="color: green;">启用</span>
+        <template #sbzt="{ text }">
+          <span v-show="text == 0" style="color: red;">异常</span>
+          <span v-show="text == 1" style="color: red;">停用</span>
+          <span v-show="text == 2" style="color: green;">启用</span>
         </template>
       </a-table>
     </a-card>
@@ -237,7 +239,7 @@ onMounted(() => {
   margin: 2rem;
 }
 
-.ant-form-item-label > label {
+.ant-form-item-label>label {
   width: 92px;
   height: 32px;
   text-align: right;
