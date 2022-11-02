@@ -137,6 +137,7 @@ export default defineComponent({
         margin-left: 6px;
         font-size: 14px;
         vertical-align: middle;
+        color: #fff;
       }
     }
   }

@@ -224,7 +224,6 @@ const TabMenu = ref(router.currentRoute.value.meta.title)
       div:nth-child(3) {
         padding: 10px;
         padding-left: 0;
-        border-bottom: 1px solid #ddd;
 
         span {
           display: inline-block;

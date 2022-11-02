@@ -16,7 +16,7 @@
     <a-card>
       <a-table :columns="columns" :data-source="TableData">
         <template #operation="{ record }" >
-          <a-button type="link">库房</a-button>
+          <a-button type="link" @click="router.push('/administration/host')">库房</a-button>
           <a-button type="link" @click="Edit(record)">修改</a-button>
           <a-button type="link" danger>删除</a-button>
         </template>
