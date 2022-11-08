@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 import { globalAxios } from './request'
 import BaiduMap from 'vue-baidu-map-3x'
+import dataV from '@kjgl77/datav-vue3'
 
 
 const app = createApp(App)
@@ -15,6 +16,8 @@ app.use(BaiduMap, {
   // 百度地图密钥 // 通过链接获取https://lbsyun.baidu.com/apiconsole/key#/home
   ak: 'kEtGonWj3y6MBD5BCXvvEAjRpKSWYWeq',
 });
+
+app.use(dataV)
 
 // 使用antd
 app.use(Antd)
